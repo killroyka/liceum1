@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Raiting
 
-# Register your models here.
+
+@admin.register(Raiting)
+class RaitingAdmin(admin.ModelAdmin):
+    pass
