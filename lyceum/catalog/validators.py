@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 
 
 def validate_brilliant(value):
-    must_word = {'певосходно', 'роскошно'}
+    must_word = {'превосходно', 'роскошно'}
     value = value.lower()
     if not (set(value.split()) - must_word) or len(value.split()) < 2:
         raise ValidationError(f'Обязательно используйте слова {" ".join(must_word)}!')
