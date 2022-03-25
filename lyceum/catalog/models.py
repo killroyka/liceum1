@@ -19,10 +19,10 @@ class Category(IsPublishedSlug):
 
 class Item(IsPublishedSlug):
     slug = None
-    name = models.CharField(verbose_name="Название", max_length=150)
-    text = models.TextField(verbose_name="Описание", validators=[validate_brilliant])
-    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.DO_NOTHING, default=None)
-    tag = models.ManyToManyField(Tag, verbose_name="Тэг")
+    name = models.CharField(verbose_name="Название", max_length=150, blank=True)
+    text = models.TextField(verbose_name="Описание", validators=[validate_brilliant], null=True)
+    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.DO_NOTHING, default=None, null=True)
+    tag = models.ManyToManyField(Tag, verbose_name="Тэг", null=True)
 
     class Meta:
         verbose_name = "Товар"
