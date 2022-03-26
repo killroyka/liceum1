@@ -12,9 +12,10 @@ class Raiting(models.Model):
         ('4', 'Обожание'),
         ('5', 'Любовь'),
     ]
-    star = models.CharField(choices=STAR_CHOICES, default=0, max_length=1)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True)
-    item = models.ForeignKey(Item, on_delete=models.DO_NOTHING, default=None, blank=True)
+    star = models.CharField(verbose_name="Оценка", choices=STAR_CHOICES, default=0, max_length=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', on_delete=models.CASCADE,
+                             blank=True)
+    item = models.ForeignKey(Item, verbose_name='Товар', on_delete=models.CASCADE, default=None, blank=True)
 
     class Meta:
         constraints = [
