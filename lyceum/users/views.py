@@ -3,16 +3,16 @@ from django.http import HttpResponse
 
 
 def user_list(request):
-    return HttpResponse("Список пользователей")
+    return render(request, "users/user_list.html")
 
 
-def user_detail(requests, id):
-    return HttpResponse(f"Информация о пользователе {id}")
+def user_detail(request, id):
+    return render(request, "users/user_detail.html")
 
 
 def signup(request):
-    return HttpResponse("Регистрация")
+    return render(request, "users/signup.html")
 
 
 def profile(request):
-    return HttpResponse("Мой профиль")
+    return render(request, "users/profile.html")
