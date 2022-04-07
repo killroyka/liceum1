@@ -3,16 +3,14 @@
 <div>
     <h5> {{item.name}}</h5>
     <h4>Описание:</h4>
-    <p> {{item.text|truncatewords:10}}</p>
+    <p> {{item.text | truncate(90)}}</p>
     <h4>Категория:</h4>
     <p> {{item.category.name}}</p>
     <h4>Тэги:</h4>
     <p>
-        {% for tag in item.tag.all %}
+        {% for tag in item.tag.all() %}
         {{tag.name}}
         {% endfor %}
     </p>
 </div>
-{% empty %}
-<p>Список пуст. Эй админ, добавь инфы!</p>
 {% endfor %}

@@ -18,6 +18,17 @@ class ItemManager(models.Manager):
             return rand_items
         return items
 
+    def get_ordered_by_category(self):
+        items = Item.objects.filter(is_published=True).select_related("category").prefetch_related("tag").order_by(
+            "category__weight")
+        orderred_by_category = {}
+        for x in items:
+            if x.category.name in orderred_by_category:
+                orderred_by_category[x.category.name].append(x)
+            else:
+                orderred_by_category[x.category.name] = [x]
+        return orderred_by_category
+
 
 class Tag(IsPublishedSlug):
     name = models.CharField(verbose_name="Название", max_length=150, blank=True)

@@ -1,6 +1,9 @@
 <h2>Мы рекомендуем:</h2>
-{% for item in items %}
+{% for category in  categories.keys() %}
 <div>
+    <h2>{{category}}:</h2>
+    {% for item in categories[category]%}
+    <hr>
     <h5> {{item.name}}</h5>
     <h4>Описание:</h4>
     <p> {{item.text | truncate(90)}}</p>
@@ -10,8 +13,10 @@
         {{tag.name}}
         {% endfor %}
     </p>
+    {% endfor %}
+        <hr>
 </div>
 {% endfor %}
-{% if items|length == 0 %}
+{% if categories.keys()|length == 0 %}
 <p>Список пуст. Эй админ, добавь инфы!</p>
 {% endif %}
