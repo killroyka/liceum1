@@ -6,16 +6,13 @@ from random import randint
 
 class ItemManager(models.Manager):
     def get_random_items(self, count=3):
-        items = Item.objects.filter(is_published=True).prefetch_related("tag").only("name", "text", "tag")
-        if len(items) > count:
-            indexes = []
-            rand_items = []
-            while len(indexes) != count:
-                randint_ = randint(0, len(items) - 1)
-                if randint_ not in indexes:
-                    indexes.append(randint_)
-                    rand_items.append(items[randint_])
-            return rand_items
+        items = Item.objects.order_by("?")[:count]
+        return items
+
+    def get_items_group_by_categories(self):
+        items = Item.objects.filter(is_published=True).select_related("category").prefetch_related("tag").order_by(
+            "category__weight")
+        print(items[0])
         return items
 
     def get_ordered_by_category(self):
@@ -52,7 +49,8 @@ class Item(IsPublishedSlug):
     slug = None
     name = models.CharField(verbose_name="Название", max_length=150, blank=True)
     text = models.TextField(verbose_name="Описание", validators=[validate_brilliant], null=True)
-    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.DO_NOTHING, default=None,
+    category = models.ForeignKey(Category, verbose_name="Категория", related_name='category',
+                                 on_delete=models.DO_NOTHING, default=None,
                                  null=True)
     tag = models.ManyToManyField(Tag, verbose_name="Тэг", null=True)
 
