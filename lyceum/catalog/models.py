@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models import Prefetch
-
 from .validators import validate_brilliant, validate_max_number
 from core.models import IsPublishedSlug
 import random
@@ -8,18 +7,16 @@ import random
 
 class CategoryManager(models.Manager):
     def get_items_group_by_categories(self):
-        categories = Category.objects.all().prefetch_related(
-            Prefetch("items", queryset=Item.objects.filter(is_published=True))) \
+        categories = Category.objects.filter(is_published=True).prefetch_related(
+            Prefetch("items", queryset=Item.objects.filter(is_published=True).prefetch_related(
+                Prefetch("tag", queryset=Tag.objects.filter(is_published=True))))) \
             .order_by("weight")
         return categories
 
 
 class ItemManager(models.Manager):
     def get_random_items(self, count=3):
-        # следующие 3 строки нужны, тк random.choices иногда выберает 2 или даже 3 одинаковых значения
-        random_ids = random.choices(Item.objects.all().values_list('id', flat=True), k=count)
-        while len(set(random_ids)) != 3:
-            random_ids = random.choices(Item.objects.all().values_list('id', flat=True), k=count)
+        random_ids = random.sample(set(Item.objects.all().values_list('id', flat=True)), k=count)
         item = Item.objects.filter(
             id__in=random_ids) \
             .prefetch_related("tag") \

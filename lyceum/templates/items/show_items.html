@@ -4,12 +4,16 @@
     <h2> {{item.name}}</h2>
     <h4>Описание:</h4>
     <p> {{item.text | truncatewords:10}}</p>
+    {% if item.tag.all %}
     <h4>Тэги:</h4>
     <p>
         {% for tag in item.tag.all %}
+        {% if tag.is_published %}
         {{tag.name}}
+        {% endif %}
         {% endfor %}
     </p>
+    {% endif %}
 </div>
 {% empty %}
 <p>Список пуст. Эй админ, добавь инфы!</p>

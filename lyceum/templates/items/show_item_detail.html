@@ -6,11 +6,15 @@
     <p> {{item.text | truncatewords:10}}</p>
     <h4>Категория:</h4>
     <p> {{item.category.name}}</p>
+    {% if item.tag.all %}
     <h4>Тэги:</h4>
     <p>
         {% for tag in item.tag.all %}
+        {% if tag.is_published %}
         {{tag.name}}
+        {% endif %}
         {% endfor %}
     </p>
+    {% endif %}
 </div>
 {% endfor %}
