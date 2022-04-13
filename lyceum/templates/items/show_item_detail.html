@@ -15,6 +15,54 @@
         {% endif %}
         {% endfor %}
     </p>
+    <h4>Оценка:</h4>
+    <p>{{average_rating}} звезд / оценок{{count}}</p>
+    {% endif %}
+    {% if form %}
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+
+        <ul>
+
+            <div>
+                <ul>
+                    <li>
+                        <input type="radio" id="contactChoice0"
+                               name="star" value="0">
+                        <label for="contactChoice0">-------</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="contactChoice1"
+                               name="star" value="1">
+                        <label for="contactChoice1">Ненависть</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="contactChoice2"
+                               name="star" value="2">
+                        <label for="contactChoice2">Неприязнь</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="contactChoice3"
+                               name="star" value="3">
+                        <label for="contactChoice3">Нейтрально</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="contactChoice4"
+                               name="star" value="4">
+                        <label for="contactChoice4">Обожание</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="contactChoice5"
+                               name="star" value="5">
+                        <label for="contactChoice5">Любовь</label>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <input type="submit" value="Поставить">
+    </form>
+    {% endif %}
     {% endif %}
 </div>
 {% endfor %}

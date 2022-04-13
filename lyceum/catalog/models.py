@@ -16,9 +16,8 @@ class CategoryManager(models.Manager):
 
 class ItemManager(models.Manager):
     def get_random_items(self, count=3):
-        random_ids = random.sample(set(Item.objects.all().values_list('id', flat=True)), k=count)
         item = Item.objects.filter(
-            id__in=random_ids) \
+            id__in=random.sample(set(Item.objects.all().values_list('id', flat=True)), k=count)) \
             .prefetch_related("tag") \
             .only("name", "text", "tag")
         return item
