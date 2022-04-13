@@ -18,12 +18,13 @@ class FeedbackForm(forms.ModelForm):
 
 def item_detail(request, id):
     raitings = Raiting.objects.filter(item__id=id).only("star")
+    item = get_object_or_404(Item, pk=id, is_published=True)
+    form = FeedbackForm(request.POST or None)
     if raitings:
         average_raiting = sum(list(map((lambda x: int(x.star)), raitings))) / raitings.count()
     else:
         average_raiting = 0
-    item = get_object_or_404(Item, pk=id, is_published=True)
-    form = FeedbackForm(request.POST or None)
+
     if form.is_valid():
         raiting = raitings.get(user__id=request.user.id)
         if raiting:
@@ -37,5 +38,4 @@ def item_detail(request, id):
             )
         return redirect(f"/catalog/{id}/")
     context = {"items": [item], "average_rating": average_raiting, "count": raitings.count(), "form": form}
-
     return render(request, "catalog/detail.html", context)
