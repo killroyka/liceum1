@@ -1,5 +1,4 @@
 <h2>Мы рекомендуем:</h2>
-{% for item in items %}
 <div>
     <h2> {{item.name}}</h2>
     <h4>Описание:</h4>
@@ -16,7 +15,7 @@
         {% endfor %}
     </p>
     <h4>Оценка:</h4>
-    <p>{{average_rating}} звезд / оценок{{count}}</p>
+    <p>{{stars.star__avg}} звезд / оценок {{stars.star__count}}</p>
     {% endif %}
     {% if form %}
     {% if user.is_authenticated %}
@@ -64,4 +63,3 @@
     {% endif %}
     {% endif %}
 </div>
-{% endfor %}
