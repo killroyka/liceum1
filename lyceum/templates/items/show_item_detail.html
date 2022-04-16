@@ -14,8 +14,12 @@
         {% endif %}
         {% endfor %}
     </p>
+    {% if stars.star__avg %}
     <h4>Оценка:</h4>
     <p>{{stars.star__avg}} звезд / оценок {{stars.star__count}}</p>
+    {% else %}
+    <p> Оценок еще нет. Стань первым!</p>
+    {% endif %}
     {% endif %}
     {% if form %}
     {% if user.is_authenticated %}
@@ -26,33 +30,68 @@
             <div>
                 <ul>
                     <li>
+                        {% if user_star is None or user_star.star == "0" %}
+                        <input type="radio" id="contactChoice0"
+                               name="star" value="0" checked>
+                        {% else %}
                         <input type="radio" id="contactChoice0"
                                name="star" value="0">
+                        {% endif %}
                         <label for="contactChoice0">-------</label>
                     </li>
+
                     <li>
+                         {% if user_star.star == "1" %}
+                        <input type="radio" id="contactChoice1"
+                               name="star" value="1" checked>
+                        {% else %}
                         <input type="radio" id="contactChoice1"
                                name="star" value="1">
+                        {% endif %}
                         <label for="contactChoice1">Ненависть</label>
                     </li>
+
                     <li>
+                         {% if user_star.star == "2" %}
+                        <input type="radio" id="contactChoice2"
+                               name="star" value="2" checked>
+                        {% else %}
                         <input type="radio" id="contactChoice2"
                                name="star" value="2">
+                        {% endif %}
                         <label for="contactChoice2">Неприязнь</label>
                     </li>
+
                     <li>
+                         {% if user_star.star == "3" %}
+                        <input type="radio" id="contactChoice3"
+                               name="star" value="3" checked>
+                        {% else %}
                         <input type="radio" id="contactChoice3"
                                name="star" value="3">
+                        {% endif %}
                         <label for="contactChoice3">Нейтрально</label>
                     </li>
+
                     <li>
+                        {% if user_star.star == "4" %}
+                        <input type="radio" id="contactChoice4"
+                               name="star" value="4" checked>
+                        {% else %}
                         <input type="radio" id="contactChoice4"
                                name="star" value="4">
+                        {% endif %}
                         <label for="contactChoice4">Обожание</label>
                     </li>
+
                     <li>
+                         {% if user_star.star == "5" %}
+                        <input type="radio" id="contactChoice5"
+                               name="star" value="5" checked>
+                        {% else %}
                         <input type="radio" id="contactChoice5"
                                name="star" value="5">
+                        {% endif %}
                         <label for="contactChoice5">Любовь</label>
                     </li>
                 </ul>
