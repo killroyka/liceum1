@@ -3,4 +3,10 @@
 {% block title %} Список пользователей {% endblock %}
 {% block content %}
 <h1>Список пользователей</h1>
+{% for user in users %}
+<h4>{{user.username}}</h4>
+{% if user.birthday.birthday %}
+<p>{{user.birthday.birthday}}</p>
+{% endif %}
+{% endfor %}
 {% endblock %}

@@ -16,7 +16,7 @@ class Raiting(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', related_name="raitings",
                              on_delete=models.CASCADE,
                              blank=True)
-    item = models.ForeignKey(Item, verbose_name='Товар', on_delete=models.CASCADE, default=None, blank=True)
+    item = models.ForeignKey(Item, verbose_name='Товар', related_name="raitings", on_delete=models.CASCADE, default=None, blank=True)
 
     class Meta:
         constraints = [

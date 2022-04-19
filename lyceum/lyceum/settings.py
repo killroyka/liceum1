@@ -101,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sented_emails"
 
 LANGUAGE_CODE = 'ru-RU'
 
@@ -127,3 +129,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+LOGIN_REDIRECT_URL = '/catalog/'
+LOGIN_URL = "/auth/login"

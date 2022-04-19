@@ -28,5 +28,5 @@ def item_detail(request, id):
                 user=request.user
             )
         return redirect(f"/catalog/{id}/")
-    context = {"item": item, "stars": stars, "form": form, "user_star": user_star[0]}
+    context = {"item": item, "stars": stars, "form": form, "user_star": user_star}
     return render(request, "catalog/detail.html", context)
