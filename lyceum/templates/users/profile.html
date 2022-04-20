@@ -3,4 +3,22 @@
 {% block title %} Мой профиль {% endblock %}
 {% block content %}
 <h1>Мой профиль</h1>
+<p>{{user.first_name}} {{user.last_name}}</p>
+<p>{{user.email}}</p>
+{% if user.birthday.birthday%}
+<p>{{user.birthday.birthday}}</p>
+{% endif %}
+<h4>Любимые товары:</h4>
+{%for item in favorite_items%}
+<p>{{item.name}}</p>
+<p>{{item.text}}</p>
+<p>{{item.raitings}}</p>
+<hr>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{user_form.as_ul}}
+    {{birthday_form.as_ul}}
+    <input type="submit" value="изменить">
+</form>
 {% endblock %}

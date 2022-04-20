@@ -9,7 +9,7 @@ urlpatterns = [
     path("users/<int:id>/", views.user_detail, name="user_detail"),
     path("user_list/", views.user_list, name="user_list"),
     path("user_detail/<int:id>/", views.user_detail, name="user_detail"),
-    path("profile/", views.user_detail, name="profile"),
+    path("profile/", views.profile, name="profile"),
 
     # аутентификация:
     path("signup/", views.signup, name="signup"),

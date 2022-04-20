@@ -12,7 +12,7 @@ class Raiting(models.Model):
         ('4', 'Обожание'),
         ('5', 'Любовь'),
     ]
-    star = models.CharField(verbose_name="Оценка", choices=STAR_CHOICES, default=0, max_length=1)
+    star = models.CharField(verbose_name="Оценка", choices=STAR_CHOICES, default="0", max_length=1)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', related_name="raitings",
                              on_delete=models.CASCADE,
                              blank=True)

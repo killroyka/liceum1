@@ -16,5 +16,5 @@ class Birthday(models.Model):
     @receiver(post_save, sender=User)
     def create_or_update_user_birthday(sender, instance, created, **kwargs):
         if created:
-            Birthday.objects.create(user=instance)
+            Birthday.objects.create(user=instance, birthday="NULL")
         instance.birthday.save()
