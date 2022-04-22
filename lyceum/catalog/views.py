@@ -15,8 +15,8 @@ def item_detail(request, id):
     raitings = Raiting.objects.filter(item__id=id).only("star")
     item = get_object_or_404(Item, pk=id, is_published=True)
     form = FeedbackForm(request.POST or None)
-    stars = Raiting.objects.filter(item=item, star__in=[1, 2, 3, 4, 5]).aggregate(Avg('star'), Count('star'))
-    user_star = raitings.filter(user__id=request.user.id)
+    stars = raitings.filter(item=item, star__in=[1, 2, 3, 4, 5]).aggregate(Avg('star'), Count('star'))
+    user_star = raitings.get(user__id=request.user.id)
     if form.is_valid():
         if user_star:
             user_star[0].star = form.cleaned_data["star"]

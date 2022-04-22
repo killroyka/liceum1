@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("email", "password1", "password2")
+        fields = ("username", "password1", "password2")
 
 
 class BirthdayForm(forms.ModelForm):

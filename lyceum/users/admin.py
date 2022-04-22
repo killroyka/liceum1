@@ -5,9 +5,13 @@ from django.contrib.auth.models import User
 from .models import Birthday
 
 
-class BirthdayInlined(admin.TabularInline):
+class BirthdayInlined(admin.StackedInline):
     model = Birthday
     can_delete = False
+
+    class Meta:
+        verbose_name = "День рождения"
+        verbose_name_plural = "Дни рождения"
 
 
 class UserAdmin(BaseUserAdmin):

@@ -2,17 +2,19 @@
 
 {% block title %} Информация о пользователе {% endblock %}
 {% block content %}
+
 <h1>Информация о пользователе {{user.username}}:</h1>
 <p>{{user.first_name}} {{user.last_name}}</p>
 <p>{{user.email}}</p>
 {% if user.birthday.birthday%}
 <p>{{user.birthday.birthday}}</p>
 {% endif %}
+{% if raitings_of_favorite_items %}
 <h4>Любимые товары:</h4>
-{%for item in favorite_items%}
-<p>{{item.name}}</p>
-<p>{{item.text}}</p>
-<p>{{item.raitings}}</p>
+{%for raiting in raitings_of_favorite_items%}
+<p>{{raiting.item.name}}</p>
+<p>{{raiting.item.text}}</p>
 <hr>
 {% endfor %}
+{% endif %}
 {% endblock %}
