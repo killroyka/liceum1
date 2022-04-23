@@ -27,9 +27,6 @@ def profile(request):
     raitings_of_favorite_items = Raiting.objects.prefetch_related("user").prefetch_related("item"). \
         filter(star="5").filter(user_id=request.user.id)
     if user_form.is_valid() and birthday_form.is_valid():
-        # Почему такое решение не работает? не понимаю(
-        # user_form.save()
-        # birthday_form.save()
         request.user.email = user_form.cleaned_data["email"]
         request.user.first_name = user_form.cleaned_data["first_name"]
         request.user.last_name = user_form.cleaned_data["last_name"]
@@ -47,7 +44,7 @@ def user_list(request):
 
 
 def user_detail(request, id):
-    user = get_object_or_404(User, pk=id).only("email", "first_name", "last_name", "birthday")
+    user = get_object_or_404(User, pk=id)
     raitings_of_favorite_items = Raiting.objects.prefetch_related("user").prefetch_related("item"). \
         filter(star="5").filter(user_id=id)
     return render(request, "users/user_detail.html",

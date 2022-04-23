@@ -16,11 +16,15 @@ def item_detail(request, id):
     item = get_object_or_404(Item, pk=id, is_published=True)
     form = FeedbackForm(request.POST or None)
     stars = raitings.filter(item=item, star__in=[1, 2, 3, 4, 5]).aggregate(Avg('star'), Count('star'))
-    user_star = raitings.get(user__id=request.user.id)
+    user_star = raitings.filter(user__id=request.user.id)
+    try:
+        user_star = user_star[0]
+    except Exception:
+        user_star = []
     if form.is_valid():
         if user_star:
-            user_star[0].star = form.cleaned_data["star"]
-            user_star[0].save(update_fields=['star'])
+            user_star.star = form.cleaned_data["star"]
+            user_star.save(update_fields=['star'])
         else:
             Raiting.objects.create(
                 star=form.cleaned_data["star"],
