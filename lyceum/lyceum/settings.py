@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "debug_toolbar",
+    
+    "sorl.thumbnail",
+    "django_cleanup.apps.CleanupConfig"
 ]
 
 MIDDLEWARE = [
@@ -131,3 +134,7 @@ INTERNAL_IPS = [
 ]
 LOGIN_REDIRECT_URL = '/catalog/'
 LOGIN_URL = "/auth/login"
+
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
