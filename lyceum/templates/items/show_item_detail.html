@@ -1,105 +1,113 @@
-<h2>Мы рекомендуем:</h2>
-<div>
-    <h2> {{item.name}}</h2>
-    <img src="{{ item.get_image_400x300.url }}"></img>
-    <h4>Описание:</h4>
-    <p> {{item.text | truncatewords:10}}</p>
-    <h4>Категория:</h4>
-    <p> {{item.category.name}}</p>
-    {% if item.tag.all %}
-    <h4>Тэги:</h4>
-    <p>
-        {% for tag in item.tag.all %}
-        {% if tag.is_published %}
-        {{tag.name}}
-        {% endif %}
-        {% endfor %}
-    </p>
-    {% if stars.star__avg %}
-    <h4>Оценка:</h4>
-    <p>{{stars.star__avg}} звезд / оценок {{stars.star__count}}</p>
-    {% else %}
-    <p> Оценок еще нет. Стань первым!</p>
-    {% endif %}
-    {% endif %}
-    {% if form %}
-    {% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-        <p>Выбеите свое отношение</p>
-        <ul>
-            <div>
-                <ul>
-                    <li>
-                        {% if user_star is None or user_star.star == "0" %}
-                        <input type="radio" id="contactChoice0"
-                               name="star" value="0" checked>
-                        {% else %}
-                        <input type="radio" id="contactChoice0"
-                               name="star" value="0">
-                        {% endif %}
-                        <label for="contactChoice0">-------</label>
-                    </li>
-
-                    <li>
-                         {% if user_star.star == "1" %}
-                        <input type="radio" id="contactChoice1"
-                               name="star" value="1" checked>
-                        {% else %}
-                        <input type="radio" id="contactChoice1"
-                               name="star" value="1">
-                        {% endif %}
-                        <label for="contactChoice1">Ненависть</label>
-                    </li>
-
-                    <li>
-                         {% if user_star.star == "2" %}
-                        <input type="radio" id="contactChoice2"
-                               name="star" value="2" checked>
-                        {% else %}
-                        <input type="radio" id="contactChoice2"
-                               name="star" value="2">
-                        {% endif %}
-                        <label for="contactChoice2">Неприязнь</label>
-                    </li>
-
-                    <li>
-                         {% if user_star.star == "3" %}
-                        <input type="radio" id="contactChoice3"
-                               name="star" value="3" checked>
-                        {% else %}
-                        <input type="radio" id="contactChoice3"
-                               name="star" value="3">
-                        {% endif %}
-                        <label for="contactChoice3">Нейтрально</label>
-                    </li>
-
-                    <li>
-                        {% if user_star.star == "4" %}
-                        <input type="radio" id="contactChoice4"
-                               name="star" value="4" checked>
-                        {% else %}
-                        <input type="radio" id="contactChoice4"
-                               name="star" value="4">
-                        {% endif %}
-                        <label for="contactChoice4">Обожание</label>
-                    </li>
-
-                    <li>
-                         {% if user_star.star == "5" %}
-                        <input type="radio" id="contactChoice5"
-                               name="star" value="5" checked>
-                        {% else %}
-                        <input type="radio" id="contactChoice5"
-                               name="star" value="5">
-                        {% endif %}
-                        <label for="contactChoice5">Любовь</label>
-                    </li>
-                </ul>
+<div class="card_container">
+    <div class="col-4">
+        <div class="card my-2">
+            <div class="item-img">
+                <img src="{{ item.get_image_400x300.url }}" class="card-img-top" alt="Товар" width="400">
             </div>
-        </ul>
-        <input type="submit" value="Поставить">
-    </form>
-    {% endif %}
-    {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">{{item.text | truncatewords:10}}</p>
+                {% if item.tag.all %}
+                <h4>Тэги:</h4>
+                <ul class="list-group list-group-flush">
+                    {% for tag in item.tag.all %}
+                    <li class="list-group-item">
+                        {% if tag.is_published %}
+                        {{tag.name}}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if stars.star__avg %}
+                <h4>Оценка:</h4>
+                <p>{{stars.star__avg}} звезд / оценок {{stars.star__count}}</p>
+                {% else %}
+                <p> Оценок еще нет. Стань первым!</p>
+                {% endif %}
+
+                {% if form %}
+                {% if user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Выбеите свое отношение</p>
+                    <ul>
+                        <div>
+                            <ul>
+                                <li>
+                                    {% if user_star is None or user_star.star == "0" %}
+                                    <input type="radio" id="contactChoice0"
+                                           name="star" value="0" checked>
+                                    {% else %}
+                                    <input type="radio" id="contactChoice0"
+                                           name="star" value="0">
+                                    {% endif %}
+                                    <label for="contactChoice0">-------</label>
+                                </li>
+
+                                <li>
+                                    {% if user_star.star == "1" %}
+                                    <input type="radio" id="contactChoice1"
+                                           name="star" value="1" checked>
+                                    {% else %}
+                                    <input type="radio" id="contactChoice1"
+                                           name="star" value="1">
+                                    {% endif %}
+                                    <label for="contactChoice1">Ненависть</label>
+                                </li>
+
+                                <li>
+                                    {% if user_star.star == "2" %}
+                                    <input type="radio" id="contactChoice2"
+                                           name="star" value="2" checked>
+                                    {% else %}
+                                    <input type="radio" id="contactChoice2"
+                                           name="star" value="2">
+                                    {% endif %}
+                                    <label for="contactChoice2">Неприязнь</label>
+                                </li>
+
+                                <li>
+                                    {% if user_star.star == "3" %}
+                                    <input type="radio" id="contactChoice3"
+                                           name="star" value="3" checked>
+                                    {% else %}
+                                    <input type="radio" id="contactChoice3"
+                                           name="star" value="3">
+                                    {% endif %}
+                                    <label for="contactChoice3">Нейтрально</label>
+                                </li>
+
+                                <li>
+                                    {% if user_star.star == "4" %}
+                                    <input type="radio" id="contactChoice4"
+                                           name="star" value="4" checked>
+                                    {% else %}
+                                    <input type="radio" id="contactChoice4"
+                                           name="star" value="4">
+                                    {% endif %}
+                                    <label for="contactChoice4">Обожание</label>
+                                </li>
+
+                                <li>
+                                    {% if user_star.star == "5" %}
+                                    <input type="radio" id="contactChoice5"
+                                           name="star" value="5" checked>
+                                    {% else %}
+                                    <input type="radio" id="contactChoice5"
+                                           name="star" value="5">
+                                    {% endif %}
+                                    <label for="contactChoice5">Любовь</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                    <input type="submit" value="Поставить">
+                </form>
+                {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
 </div>

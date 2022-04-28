@@ -2,26 +2,44 @@
 {% for category in  categories %}
 {% if category.items.all %}
 <div>
-    <hr>
-    <h2>{{category.name}}:</h2>
-    <hr>
-    {% for item in category.items.all %}
-    <h2> {{item.name}}</h2>
-    <img src="{{ item.get_image_400x300.url }}"></img>
-    <h4>Описание:</h4>
-    <p> {{item.text | truncatewords:10}}</p>
-    {% if item.tag.all %}
-    <h4>Тэги:</h4>
-    <p>
-        {% for tag in item.tag.all %}
-        {% if tag.is_published %}
-        {{tag.name}}
-        {% endif %}
+    <div class="row">
+        <div class="col-12 category_name py-1">
+            <h2>{{category.name}}:</h2>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        {% for item in category.items.all %}
+        <div class="col-4">
+<!--            TODO настроить этот урл. хз почему не пашет-->
+            <a href="{% url('catalog:item_detail') item.id %}" class="item">
+                <div class="card my-2">
+                    <div class="item-img" style="width: 100%">
+                        <img src="{{ item.get_image_400x300.url }}" class="card-img-top" alt="Товар">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text">{{item.text | truncatewords:10}}</p>
+                        {% if item.tag.all %}
+                        <h4>Тэги:</h4>
+                        <ul class="list-group list-group-flush">
+                            {% for tag in item.tag.all %}
+                            <li class="list-group-item">
+                                {% if tag.is_published %}
+                                {{tag.name}}
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
         {% endfor %}
-    </p>
-    {% endif %}
+    </div>
+
 </div>
-{% endfor %}
+
 {% endif %}
 {% empty %}
 <p>Список пуст. Эй админ, добавь инфы!</p>

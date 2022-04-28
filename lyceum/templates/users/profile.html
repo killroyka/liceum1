@@ -2,25 +2,67 @@
 
 {% block title %} Мой профиль {% endblock %}
 {% block content %}
+<div class="row mt-4">
+    <div class="col-6">
+        <div class="card text-center">
+            <div class="card-title">
+                <h1 class="">Мой профиль</h1>
+            </div>
+            <div class="card-body">
+                <p>{{user.first_name}} {{user.last_name}}</p>
+                <p>{{user.email}}</p>
+                {% if user.birthday.birthday%}
+                <p>{{user.birthday.birthday}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if raitings_of_favorite_items %}
+    <div class="col-6">
+        <div class="card text-center">
+            <div class="card-title">
+                <h4>Любимые товары:</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                {%for raiting in raitings_of_favorite_items%}
+                <li class="list-group-item">
+                    <p>{{raiting.item.name}}</p>
+                    <p>{{raiting.item.text}}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
 
-<h1>Мой профиль</h1>
-<p>{{user.first_name}} {{user.last_name}}</p>
-<p>{{user.email}}</p>
-{% if user.birthday.birthday%}
-<p>{{user.birthday.birthday}}</p>
-{% endif %}
-{% if raitings_of_favorite_items %}
-<h4>Любимые товары:</h4>
-{%for raiting in raitings_of_favorite_items%}
-<p>{{raiting.item.name}}</p>
-<p>{{raiting.item.text}}</p>
-<hr>
-{% endfor %}
-{% endif %}
-<form method="post">
-    {% csrf_token %}
-    {{user_form.as_ul}}
-    {{birthday_form.as_ul}}
-    <input type="submit" value="изменить">
-</form>
+<div class="card_container my-5">
+    <div class="card" style="width: 500px">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in user_form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% for field in birthday_form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <input class="btn btn-primary" type="submit" value="изменить">
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

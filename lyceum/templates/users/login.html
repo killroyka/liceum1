@@ -4,8 +4,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<p>вы уже вошли, может захотите <a href={%url 'logout' %}>выйти</a></p>
+<h3 class="alert form_alert" >Вы уже вошли, может захотите <a href="{%url 'logout' %}">выйти</a></h3>
 {% endif %}
-
 {% include 'users/universal_form.html' %}
 {% endblock %}

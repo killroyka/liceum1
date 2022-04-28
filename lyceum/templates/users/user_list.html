@@ -10,3 +10,20 @@
 {% endif %}
 {% endfor %}
 {% endblock %}
+
+
+
+
+<div class="card text-center">
+            <div class="card-title">
+                <h1 class="">Мой профиль</h1>
+            </div>
+            <div class="card-body">
+                <p>{{user.first_name}} {{user.last_name}}</p>
+                <p>{{user.email}}</p>
+                {% if user.birthday.birthday%}
+                <p>{{user.birthday.birthday}}</p>
+                {% endif %}
+                {% if raitings_of_favorite_items %}
+            </div>
+        </div>

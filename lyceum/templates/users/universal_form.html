@@ -1,5 +1,19 @@
-<form method="post">
-    {% csrf_token %}
-    {{form.as_ul}}
-    <input type="submit" value="Продолжить">
-</form>
+<div class="card_container my-5">
+    <div class="card" style="width: 500px">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <input class="btn btn-primary" type="submit" value="Продолжить">
+            </form>
+        </div>
+    </div>
+</div>
