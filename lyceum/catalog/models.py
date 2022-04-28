@@ -1,7 +1,10 @@
+from contextlib import nullcontext
 from django.db import models
 from django.db.models import Prefetch
+from django.utils.safestring import mark_safe
 from .validators import validate_brilliant, validate_max_number
 from core.models import IsPublishedSlug
+from sorl.thumbnail import get_thumbnail
 import random
 
 
@@ -19,7 +22,7 @@ class ItemManager(models.Manager):
         item = Item.objects.filter(
             id__in=random.sample(set(Item.objects.all().values_list('id', flat=True)), k=count)) \
             .prefetch_related("tag") \
-            .only("name", "text", "tag")
+            .only("name", "text", "tag", "upload")
         return item
 
 
@@ -51,7 +54,25 @@ class Item(IsPublishedSlug):
                                  on_delete=models.DO_NOTHING, default=None,
                                  null=True)
     tag = models.ManyToManyField(Tag, verbose_name="Тэг", null=True)
-
+    
+    upload = models.ImageField(upload_to="uploads/", null=True)
+    
+    def get_image_x1280(self):
+        return get_thumbnail(self.upload, "1280", quality=51)
+    
+    def get_image_400x300(self):
+        return get_thumbnail(self.upload, "400x300", crop="center", quality=51)
+    
+    def image_tmb(self):
+        if self.upload:
+            return mark_safe(
+                f"<img src='{self.upload.url}' width='50'></img>"
+            )
+        return "Нет изображения"
+    
+    image_tmb.short_description = "Превью"
+    image_tmb.allow_tags = True
+    
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
