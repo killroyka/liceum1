@@ -3,20 +3,13 @@
 {% block title %} Список пользователей {% endblock %}
 {% block content %}
 <h1>Список пользователей</h1>
-{% for user in users %}
-<h4>{{user.username}}</h4>
-{% if user.birthday.birthday %}
-<p>{{user.birthday.birthday}}</p>
-{% endif %}
-{% endfor %}
-{% endblock %}
+<div class="row">
+    {% for user in users %}
 
-
-
-
-<div class="card text-center">
+    <div class="col-4 ">
+        <div class="card text-center user_card my-4">
             <div class="card-title">
-                <h1 class="">Мой профиль</h1>
+                <h1 class="">профиль {{user.username}}</h1>
             </div>
             <div class="card-body">
                 <p>{{user.first_name}} {{user.last_name}}</p>
@@ -24,6 +17,12 @@
                 {% if user.birthday.birthday%}
                 <p>{{user.birthday.birthday}}</p>
                 {% endif %}
-                {% if raitings_of_favorite_items %}
             </div>
         </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+

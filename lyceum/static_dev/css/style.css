@@ -13,15 +13,22 @@
 input {
     margin: 5px;
 }
-.form_alert{
+
+.form_alert {
     display: flex;
     justify-content: center;
 }
+
 .card_container {
     display: flex;
     justify-content: center;
 }
+
 a.item {
-  color: #000 !important;
-  text-decoration: none
+    color: #000 !important;
+    text-decoration: none
+}
+
+.user_card{
+    height: 300px;
 }
