@@ -1,4 +1,6 @@
 from contextlib import nullcontext
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Prefetch
 from django.utils.safestring import mark_safe
@@ -6,6 +8,8 @@ from .validators import validate_brilliant, validate_max_number
 from core.models import IsPublishedSlug
 from sorl.thumbnail import get_thumbnail
 import random
+
+User = get_user_model()
 
 
 class CategoryManager(models.Manager):
@@ -78,3 +82,14 @@ class Item(IsPublishedSlug):
         verbose_name_plural = "Товары"
 
     objects = ItemManager()
+
+
+class Gallery(models.Model):
+    item = models.ForeignKey(Item, related_name="gallery", on_delete=models.CASCADE, null=True)
+    upload = models.ImageField(upload_to="uploads/", null=True)
+
+    def get_image_x1280(self):
+        return get_thumbnail(self.upload, "1280", quality=51)
+
+    def get_image_400x300(self):
+        return get_thumbnail(self.upload, "400x300", crop="center", quality=51)
