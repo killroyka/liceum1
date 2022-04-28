@@ -11,7 +11,7 @@
         {% for item in category.items.all %}
         <div class="col-4">
 <!--            TODO настроить этот урл. хз почему не пашет-->
-            <a href="{% url('catalog:item_detail') item.id %}" class="item">
+            <a href="#" class="item">
                 <div class="card my-2">
                     <div class="item-img" style="width: 100%">
                         <img src="{{ item.get_image_400x300.url }}" class="card-img-top" alt="Товар">
