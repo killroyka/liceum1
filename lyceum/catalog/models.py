@@ -1,5 +1,3 @@
-from contextlib import nullcontext
-
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Prefetch
@@ -57,26 +55,25 @@ class Item(IsPublishedSlug):
     category = models.ForeignKey(Category, verbose_name="Категория", related_name='items',
                                  on_delete=models.DO_NOTHING, default=None,
                                  null=True)
-    tag = models.ManyToManyField(Tag, verbose_name="Тэг", null=True)
-    
+    tag = models.ManyToManyField(Tag, verbose_name="Тэг", null=True)    
     upload = models.ImageField(upload_to="uploads/", null=True)
-    
+
     def get_image_x1280(self):
         return get_thumbnail(self.upload, "1280", quality=51)
-    
+
     def get_image_400x300(self):
         return get_thumbnail(self.upload, "400x300", crop="center", quality=51)
-    
+
     def image_tmb(self):
         if self.upload:
             return mark_safe(
                 f"<img src='{self.upload.url}' width='50'></img>"
             )
         return "Нет изображения"
-    
+
     image_tmb.short_description = "Превью"
     image_tmb.allow_tags = True
-    
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"

@@ -1,5 +1,5 @@
 from django.db.models import Avg, Count
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from catalog.models import Item, Category, Gallery
 from django.shortcuts import get_object_or_404
 from catalog.forms import FeedbackForm
