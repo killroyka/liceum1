@@ -1,13 +1,15 @@
+import random
 from contextlib import nullcontext
 
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Prefetch
 from django.utils.safestring import mark_safe
-from .validators import validate_brilliant, validate_max_number
-from core.models import IsPublishedSlug
 from sorl.thumbnail import get_thumbnail
-import random
+
+from core.models import IsPublishedSlug
+
+from .validators import validate_brilliant, validate_max_number
 
 User = get_user_model()
 
@@ -33,6 +35,7 @@ class ItemManager(models.Manager):
 class Tag(IsPublishedSlug):
     name = models.CharField(verbose_name="Название", max_length=150, blank=True)
 
+
     class Meta:
         verbose_name = "Тэг"
         verbose_name_plural = "Тэги"
@@ -43,9 +46,11 @@ class Category(IsPublishedSlug):
                                  validators=[validate_max_number])
     name = models.CharField(verbose_name="Название", max_length=150, blank=True)
 
+
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
 
     objects = CategoryManager()
 
@@ -58,28 +63,30 @@ class Item(IsPublishedSlug):
                                  on_delete=models.DO_NOTHING, default=None,
                                  null=True)
     tag = models.ManyToManyField(Tag, verbose_name="Тэг", null=True)
-    
+
     upload = models.ImageField(upload_to="uploads/", null=True)
-    
+
     def get_image_x1280(self):
         return get_thumbnail(self.upload, "1280", quality=51)
-    
+
     def get_image_400x300(self):
         return get_thumbnail(self.upload, "400x300", crop="center", quality=51)
-    
+
     def image_tmb(self):
         if self.upload:
             return mark_safe(
                 f"<img src='{self.upload.url}' width='50'></img>"
             )
         return "Нет изображения"
-    
+
     image_tmb.short_description = "Превью"
     image_tmb.allow_tags = True
-    
+
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
 
     objects = ItemManager()
 

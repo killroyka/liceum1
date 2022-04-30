@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Birthday
+
+from .models import Birthday, User
 
 
 class UserForm(forms.ModelForm):

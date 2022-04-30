@@ -1,13 +1,8 @@
-from django.shortcuts import render
-from catalog.models import Item
 from django.core.mail import send_mail
+from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
-
-# def home(request):
-#     send_mail("dla", "dka", "from@example.ru", ["to@example.ru"])
-#     items = Item.objects.get_random_items()
-#     return render(request, "homepage/home.html", {'items': items})
+from catalog.models import Item
 
 
 class HomeView(TemplateView):
