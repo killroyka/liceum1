@@ -1,5 +1,6 @@
 from catalog.models import Item
 from django.core.mail import send_mail
+from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
 

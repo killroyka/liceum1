@@ -4,11 +4,12 @@ from .models import User
 from django.shortcuts import get_object_or_404
 from .forms import UserForm, BirthdayForm, RegisterForm
 from django.contrib.auth import login
-from raitng.models import Raiting
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
+from raitng.models import Raiting
 
 class SignUpView(FormView):
     template_name = "users/signup.html"

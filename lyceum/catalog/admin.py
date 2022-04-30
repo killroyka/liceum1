@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Item, Tag, Category, Gallery
+
+from .models import Category, Gallery, Item, Tag
 
 
 class GalleryInlined(admin.StackedInline):

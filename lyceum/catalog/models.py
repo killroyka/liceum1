@@ -1,11 +1,13 @@
+import random
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Prefetch
 from django.utils.safestring import mark_safe
-from .validators import validate_brilliant, validate_max_number
-from core.models import IsPublishedSlug
 from sorl.thumbnail import get_thumbnail
-import random
+
+from core.models import IsPublishedSlug
+
+from .validators import validate_brilliant, validate_max_number
 
 User = get_user_model()
 
@@ -31,6 +33,7 @@ class ItemManager(models.Manager):
 class Tag(IsPublishedSlug):
     name = models.CharField(verbose_name="Название", max_length=150, blank=True)
 
+
     class Meta:
         verbose_name = "Тэг"
         verbose_name_plural = "Тэги"
@@ -41,9 +44,11 @@ class Category(IsPublishedSlug):
                                  validators=[validate_max_number])
     name = models.CharField(verbose_name="Название", max_length=150, blank=True)
 
+
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
 
     objects = CategoryManager()
 
@@ -77,6 +82,7 @@ class Item(IsPublishedSlug):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
 
     objects = ItemManager()
 
