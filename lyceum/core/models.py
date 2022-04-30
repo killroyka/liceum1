@@ -1,5 +1,5 @@
 from django.db import models
-from catalog.validators import validate_brilliant, validate_eng, validate_max_number
+from catalog.validators import validate_eng
 
 
 class IsPublishedSlug(models.Model):
