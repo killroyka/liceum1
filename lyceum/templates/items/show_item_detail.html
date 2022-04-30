@@ -2,7 +2,29 @@
     <div class="col-4">
         <div class="card my-2">
             <div class="item-img">
-                <img src="{{ item.get_image_400x300.url }}" class="card-img-top" alt="Товар" width="400">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ item.get_image_400x300.url }}" class="card-img-top" alt="Товар" width="400">
+                        </div>
+                        {% for photo in photos %}
+                        <div class="carousel-item">
+                            <img src="{{ photo.get_image_400x300.url }}" class="card-img-top d-block h-auto" alt="Товар"
+                                 width="400">
+                        </div>
+                        {% endfor %}
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Предыдущий</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Следующий</span>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{item.name}}</h5>
